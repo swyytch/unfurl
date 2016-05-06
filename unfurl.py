@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+from __future__ import print_function
+
 import urllib2
 import cookielib
 from urlparse import urlparse
 import httplib2 as httplib
 import json
+
+import sys
 
 
 def expand_url(url):
@@ -44,4 +49,9 @@ def expand_url_with_hops(url, hops = [], headers = None):
         return expand_url_with_hops(redirected_url, hops, headers) # changed to process chains of short urls
     else:
         return url, hops
+
+if __name__ == "__main__":
+    urls = sys.argv[1:]
+    for url in urls:
+        print("{0}: {1}".format(url, expand_url(url)))
 
